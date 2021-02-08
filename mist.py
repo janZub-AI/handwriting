@@ -1,6 +1,4 @@
 # baseline cnn model for mnist
-from numpy import mean
-from numpy import std
 from keras.models import Sequential
 from keras.layers import Conv2D
 from keras.layers import MaxPooling2D

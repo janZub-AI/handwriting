@@ -1,8 +1,8 @@
-import time
 from matplotlib import pyplot
-from sklearn.model_selection import KFold
 from keras.datasets import mnist
 from keras.utils import to_categorical
+from numpy import mean
+from numpy import std
 
 class Utils():
     # load train and test dataset
@@ -52,25 +52,3 @@ class Utils():
         pyplot.show()
 
 
-    # evaluate a model using k-fold cross-validation
-    def evaluate_model(dataX, dataY, n_folds=5):
-        scores, histories = list(), list()
-        # prepare cross validation
-        kfold = KFold(n_folds, shuffle=True, random_state=1)
-        # enumerate splits
-        for train_ix, test_ix in kfold.split(dataX):
-            start_time = time.time()
-            # define model
-            model = define_model()
-            # select rows for train and test
-            trainX, trainY, testX, testY = dataX[train_ix], dataY[train_ix], dataX[test_ix], dataY[test_ix]
-            # fit model
-            history = model.fit(trainX, trainY, epochs=10, batch_size=32, validation_data=(testX, testY), verbose=0)
-            # evaluate model
-            _, acc = model.evaluate(testX, testY, verbose=0)
-            print('> %.3f' % (acc * 100.0))
-            # stores scores
-            scores.append(acc)
-            histories.append(history)
-            print("--- %s seconds ---" % (time.time() - start_time))
-        return scores, histories
