@@ -13,8 +13,8 @@ class Utils():
         trainX = trainX.reshape((trainX.shape[0], 28, 28, 1))
         testX = testX.reshape((testX.shape[0], 28, 28, 1))
         # one hot encode target values
-        trainY = to_categorical(trainY)
-        testY = to_categorical(testY)
+        trainY = to_categorical(trainY).astype('float32')
+        testY = to_categorical(testY).astype('float32')
         return trainX, trainY, testX, testY
 
     # scale pixels
